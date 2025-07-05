@@ -1,22 +1,72 @@
-const getcompany = (req , res) => {
-    res.send("Obtiene todos los usuarios")
+const companyModel = require("../models/company.model.js")
+
+const getcompany = async (req , res) => {
+    try {
+        const data = await companyModel.find()
+        res.json(data)
+    } catch {
+        res.json({msg:"Obten las company"})
+    }
 }
-const postcompany = (req, res) => {
-    res.send("Crea los usuarios")
+const getcompanyById = async (req , res) => {
+    const companyId = req.params.id
+    try {
+        const data = await companyModel.findById(companyId)
+
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al obetener los datos'})
+    }
 }
-const patchcompany = (req , res) => {
-    res.send("Actualiza parcialmente los usuarios")
+const postcompany = async (req, res) => {
+    const inputData = req.body
+    try {
+        const data = await companyModel.create(inputData)
+
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al registrar al usuario'})
+    }
 }
-const putcompany = (req, res) => {
-    res.send("Actualiza todos los usuarios")
+const patchcompany = async (req , res) => {
+    const companyId = req.params.id
+    const inputData = req.body
+
+    try {
+        const data = await companyModel.findByIdAndUpdate( companyId, inputData, {new: true})
+        res.json( data )
+    } catch {
+        res.json({msg:'Error al actualizar company'})
+    }
 }
-const deletecompany = (req, res) => {
-    res.send("Elimina los usuarios")
+const putcompany = async (req, res) => {
+    const companyId = req.params.id
+    const inputData = req.body
+
+    try {
+        const data = await companyModel.findByIdAndUpdate(companyId, inputData, {new:true})
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al actualizar todos las company'})
+    }
 }
+const deletecompany = async (req, res) => {
+    const companyId = req.params.id
+
+    try {
+        const data = await companyModel.findByIdAndDelete(companyId)
+
+        res.json( data )
+    } catch {
+        res.json({msg:'Error al Eliminar los usuarios'})
+    }
+}
+
 
 
 module.exports = {
     getcompany,
+    getcompanyById,
     postcompany,
     patchcompany,
     putcompany,

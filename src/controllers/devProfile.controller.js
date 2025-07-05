@@ -1,21 +1,70 @@
-const getdevProfile = (req , res) => {
-    res.send("Obtiene todos los usuarios")
+const devProfileModel = require("../models/devProfile.model.js")
+
+const getdevProfile = async (req , res) => {
+    try {
+        const data = await devProfileModel.find()
+        res.json(data)
+    } catch {
+        res.json({msg:"Obten los developer"})
+    }
 }
-const postdevProfile = (req, res) => {
-    res.send("Crea los usuarios")
+const getdevProfileById = async (req , res) => {
+    const userId = req.params.id
+    try {
+        const data = await devProfileModel.findById(userId)
+
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al obetener los datos'})
+    }
 }
-const patchdevProfile = (req , res) => {
-    res.send("Actualiza parcialmente los usuarios")
+const postdevProfile = async (req, res) => {
+    const inputData = req.body
+    try {
+        const data = await devProfileModel.create(inputData)
+
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al registrar al usuario'})
+    }
 }
-const putdevProfile = (req, res) => {
-    res.send("Actualiza todos los usuarios")
+const patchdevProfile = async (req , res) => {
+    const userId = req.params.id
+    const inputData = req.body
+
+    try {
+        const data = await devProfileModel.findByIdAndUpdate( userId, inputData, {new: true})
+        res.json( data )
+    } catch {
+        res.json({msg:'Error al actualizar el usuario'})
+    }
 }
-const deletedevProfile = (req, res) => {
-    res.send("Elimina los usuarios")
+const putdevProfile = async (req, res) => {
+    const userId = req.params.id
+    const inputData = req.body
+
+    try {
+        const data = await devProfileModel.findByIdAndUpdate(userId, inputData, {new:true})
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al actualizar todos los usuarios'})
+    }
+}
+const deletedevProfile = async (req, res) => {
+    const userId = req.params.id
+
+    try {
+        const data = await devProfileModel.findByIdAndDelete(userId)
+
+        res.json( data )
+    } catch {
+        res.json({msg:'Error al Eliminar los usuarios'})
+    }
 }
 
 
 module.exports = {
+    getdevProfileById,
     getdevProfile,
     postdevProfile,
     patchdevProfile,
