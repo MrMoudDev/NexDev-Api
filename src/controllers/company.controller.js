@@ -2,7 +2,7 @@ const companyModel = require("../models/company.model.js")
 
 const getcompany = async (req , res) => {
     try {
-        const data = await companyModel.find()
+        const data = await companyModel.find().populate([ 'userId' ])
         res.json(data)
     } catch {
         res.json({msg:"Obten las company"})

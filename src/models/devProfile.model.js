@@ -15,11 +15,6 @@ const devProfileSchema = new mongoose.Schema({
     cvUrl: {
         type: String,
     },
-    // Con esta propiedad vinculamos este modelo con el de Users
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
-    },
     // Relación: 1 desarrollador -> muchas aplicaciones
     aplication: { type: mongoose.Schema.Types.ObjectId,ref: 'aplication'},
 },{

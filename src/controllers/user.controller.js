@@ -4,7 +4,7 @@ const userModel = require("../models/user.model.js")
 
 const getUsers = async (req , res) => {
     try {
-        const data = await userModel.find()
+        const data = await userModel.find().populate([ 'company', 'devProfile' ])
         res.json( data )
     } catch( error ) {
         res.json({msg: 'Error al obtener los usuarios'})
@@ -14,7 +14,7 @@ const getUsers = async (req , res) => {
 const getUserById = async (req , res) => {
     const userId = req.params.id
     try {
-        const data = await userModel.findById(userId)
+        const data = await userModel.findById(userId).populate([ 'company', 'devProfile' ])
 
         res.json( data )
     } catch( error ) {
@@ -22,13 +22,16 @@ const getUserById = async (req , res) => {
     }
 }
 const postUsers = async (req, res) => {
-    const inputData = req.body
-    const { email, password, rol } = inputData;
+    const inputData = req.body;                     // 5
+    const { email, password, rol } = inputData;     // Desestructuracion
 
     let companyRegistered;
-    let developerData;
+    let developerRegistered;
 
     try {
+
+        let userData = { email, password, rol };
+
         // Paso 1: Verificar si el usuario existe
         const userExists = await userModel.findOne({ email: inputData.email });
         // Verificando si el usuario existe
@@ -36,23 +39,20 @@ const postUsers = async (req, res) => {
             return res.status(400).json({ msg: 'El usuario ya existe' });
         }
 
-        const userRegistered = await userModel.create({ email, password, rol});
-        const userId = userRegistered._id;
-
         // Paso 2: Filtro los datos a registrar por rol
         if( inputData.rol === 'company' ) {
-            inputData.company.userId = userId;      // Asocia el Id de la cuenta de usuario al registro de compañia
-
             companyRegistered = await companyModel.create( inputData.company );
+            userData.company = companyRegistered._id;
         }
         else if( inputData.rol === 'developer' ) {
-            inputData.developer.userId = userId;    // Asocia el Id de la cuenta de usuario al registro de desarrollador
-
             developerRegistered = await devProfileModel.create(inputData.developer);
+            userData.devProfile = developerRegistered._id;
         }
 
+        const userRegistered = await userModel.create( userData );
+
         res.json({ 
-            user: { email, password, rol}, 
+            user: userRegistered, 
             company: companyRegistered, 
             developer: developerRegistered 
         });
