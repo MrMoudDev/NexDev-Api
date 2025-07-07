@@ -8,17 +8,15 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }, // Encriptada con bcrypt
+    }, // Encriptada con bcryp
 
     rol: {
         type: String,
-        enum: ['company', 'developer', 'admin'],
-        default: 'developer',
-        required: true
+        enum: [ 'company', 'developer', 'admin' ],
+        default: 'developer'
     },
 
     // Relación polimórfica (1 usuario -> 1 desarrollador o 1 empresa)
-
     company: { type: mongoose.Schema.Types.ObjectId, ref: 'company' },
     devProfile: { type: mongoose.Schema.Types.ObjectId, ref: 'devProfile' },
 

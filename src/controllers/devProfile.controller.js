@@ -18,16 +18,16 @@ const getdevProfileById = async (req , res) => {
         res.json({msg: 'Error al obetener los datos'})
     }
 }
-const postdevProfile = async (req, res) => {
-    const inputData = req.body
-    try {
-        const data = await devProfileModel.create(inputData)
+// const postdevProfile = async (req, res) => {
+//     const inputData = req.body
+//     try {
+//         const data = await devProfileModel.create(inputData)
 
-        res.json( data )
-    } catch {
-        res.json({msg: 'Error al registrar al usuario'})
-    }
-}
+//         res.json( data )
+//     } catch {
+//         res.json({msg: 'Error al registrar al usuario'})
+//     }
+// }
 const patchdevProfile = async (req , res) => {
     const userId = req.params.id
     const inputData = req.body
@@ -66,7 +66,7 @@ const deletedevProfile = async (req, res) => {
 module.exports = {
     getdevProfileById,
     getdevProfile,
-    postdevProfile,
+    // postdevProfile,
     patchdevProfile,
     putdevProfile,
     deletedevProfile

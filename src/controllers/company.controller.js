@@ -18,16 +18,16 @@ const getcompanyById = async (req , res) => {
         res.json({msg: 'Error al obetener los datos'})
     }
 }
-const postcompany = async (req, res) => {
-    const inputData = req.body
-    try {
-        const data = await companyModel.create(inputData)
+// const postcompany = async (req, res) => {
+//     const inputData = req.body
+//     try {
+//         const data = await companyModel.create(inputData)
 
-        res.json( data )
-    } catch {
-        res.json({msg: 'Error al registrar al usuario'})
-    }
-}
+//         res.json( data )
+//     } catch {
+//         res.json({msg: 'Error al registrar al usuario'})
+//     }
+// }
 const patchcompany = async (req , res) => {
     const companyId = req.params.id
     const inputData = req.body
@@ -67,7 +67,7 @@ const deletecompany = async (req, res) => {
 module.exports = {
     getcompany,
     getcompanyById,
-    postcompany,
+    // postcompany,
     patchcompany,
     putcompany,
     deletecompany
