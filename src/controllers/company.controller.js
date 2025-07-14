@@ -2,14 +2,14 @@ const companyModel = require("../models/company.model.js")
 
 const getcompany = async (req , res) => {
     try {
-        const data = await companyModel.find().populate([ 'userId' ])
+        const data = await companyModel.find();
         res.json(data)
     } catch {
         res.json({msg:"Obten las company"})
     }
 }
 const getcompanyById = async (req , res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
     try {
         const data = await companyModel.findById(companyId)
 
@@ -18,18 +18,19 @@ const getcompanyById = async (req , res) => {
         res.json({msg: 'Error al obetener los datos'})
     }
 }
-// const postcompany = async (req, res) => {
-//     const inputData = req.body
-//     try {
-//         const data = await companyModel.create(inputData)
+const postcompany = async (req, res) => {
+    // TODO: Falta registrar el id de esta compañia registrada en el 
+    const inputData = req.body
+    try {
+        const data = await companyModel.create(inputData)
 
-//         res.json( data )
-//     } catch {
-//         res.json({msg: 'Error al registrar al usuario'})
-//     }
-// }
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al registrar al usuario'})
+    }
+}
 const patchcompany = async (req , res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
     const inputData = req.body
 
     try {
@@ -40,7 +41,7 @@ const patchcompany = async (req , res) => {
     }
 }
 const putcompany = async (req, res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
     const inputData = req.body
 
     try {
@@ -51,7 +52,7 @@ const putcompany = async (req, res) => {
     }
 }
 const deletecompany = async (req, res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
 
     try {
         const data = await companyModel.findByIdAndDelete(companyId)
@@ -67,7 +68,7 @@ const deletecompany = async (req, res) => {
 module.exports = {
     getcompany,
     getcompanyById,
-    // postcompany,
+    postcompany,
     patchcompany,
     putcompany,
     deletecompany
