@@ -3,10 +3,10 @@ const { getvacant, getvacantById, postvacant, putvacant, patchvacant, deletevaca
 const router = express.Router()
 
 router.get("/", getvacant)
-router.get("/:vancat", getvacantById)
 router.post("/", postvacant)
-router.put("/:vacant", putvacant)
-router.patch("/:vacant", patchvacant)
-router.delete("/:vacant", deletevacant)
+router.get("/:vancatId", getvacantById)
+router.put("/:vacantId", putvacant)
+router.patch("/:vacantId", patchvacant)
+router.delete("/:vacantId", deletevacant)
 
 module.exports = router

@@ -7,10 +7,10 @@ const router = express.Router()
 //Rutas definidas
 router.get("/", getdevProfile)
 // router.post("/",postdevProfile)
-router.get("/:developer", getdevProfileById)
-router.put("/:developer", putdevProfile)
-router.patch("/:developer", patchdevProfile)
-router.delete("/:developer", deletedevProfile)
+router.get("/:developerId", getdevProfileById)
+router.put("/:developerId", putdevProfile)
+router.patch("/:developerId", patchdevProfile)
+router.delete("/:developerId", deletedevProfile)
 
 module.exports = router
 

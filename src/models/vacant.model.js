@@ -21,7 +21,7 @@ const vacantSchema = new mongoose.Schema({
   company: { type: mongoose.Schema.Types.ObjectId, ref: 'company', required: true },
 
   // Relación: 1 vacante -> muchas aplicaciones
-  application: [{ type: mongoose.Schema.Types.ObjectId, ref: 'aplicacion' }],
+  applicantes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
 
   fechaPublicacion: { type: Date, default: Date.now },
   fechaCierre: Date

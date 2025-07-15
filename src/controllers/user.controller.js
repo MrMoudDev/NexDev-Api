@@ -14,7 +14,7 @@ const getUsers = async (req , res) => {
 const getUserById = async (req , res) => {
     const userId = req.params.id
     try {
-        const data = await userModel.findById(userId).populate([ 'company', 'devProfile' ])
+        const data = await userModel.findById(userId)
 
         res.json( data )
     } catch( error ) {
@@ -51,10 +51,10 @@ const postUsers = async (req, res) => {
 
         const userRegistered = await userModel.create( userData );
 
-        res.json({ 
-            user: userRegistered, 
-            company: companyRegistered, 
-            developer: developerRegistered 
+        res.json({
+            user: userRegistered,
+            company: companyRegistered,
+            developer: developerRegistered
         });
 
     } catch( error ) {

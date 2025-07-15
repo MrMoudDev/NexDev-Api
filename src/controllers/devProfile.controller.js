@@ -4,17 +4,17 @@ const getdevProfile = async (req , res) => {
     try {
         const data = await devProfileModel.find()
         res.json(data)
-    } catch {
+    } catch (error) {
         res.json({msg:"Obten los developer"})
     }
 }
 const getdevProfileById = async (req , res) => {
-    const userId = req.params.id
+    const developerId = req.params.developerId
     try {
-        const data = await devProfileModel.findById(userId)
+        const data = await devProfileModel.findById(developerId)
 
         res.json( data )
-    } catch {
+    } catch (error) {
         res.json({msg: 'Error al obetener los datos'})
     }
 }
@@ -29,35 +29,35 @@ const getdevProfileById = async (req , res) => {
 //     }
 // }
 const patchdevProfile = async (req , res) => {
-    const userId = req.params.id
+    const developerId = req.params.developerId
     const inputData = req.body
 
     try {
-        const data = await devProfileModel.findByIdAndUpdate( userId, inputData, {new: true})
+        const data = await devProfileModel.findByIdAndUpdate( developerId, inputData, {new: true})
         res.json( data )
-    } catch {
+    } catch (error) {
         res.json({msg:'Error al actualizar el usuario'})
     }
 }
 const putdevProfile = async (req, res) => {
-    const userId = req.params.id
+    const developerId = req.params.developerId
     const inputData = req.body
 
     try {
-        const data = await devProfileModel.findByIdAndUpdate(userId, inputData, {new:true})
+        const data = await devProfileModel.findByIdAndUpdate(developerId, inputData, {new:true})
         res.json( data )
-    } catch {
+    } catch (error) {
         res.json({msg: 'Error al actualizar todos los usuarios'})
     }
 }
 const deletedevProfile = async (req, res) => {
-    const userId = req.params.id
+    const developerId = req.params.developerId
 
     try {
-        const data = await devProfileModel.findByIdAndDelete(userId)
+        const data = await devProfileModel.findByIdAndDelete(developerId)
 
         res.json( data )
-    } catch {
+    } catch (error) {
         res.json({msg:'Error al Eliminar los usuarios'})
     }
 }

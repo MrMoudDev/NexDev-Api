@@ -2,62 +2,62 @@ const companyModel = require("../models/company.model.js")
 
 const getcompany = async (req , res) => {
     try {
-        const data = await companyModel.find().populate([ 'userId' ])
+        const data = await companyModel.find()
         res.json(data)
-    } catch {
+    } catch (error) {
         res.json({msg:"Obten las company"})
     }
 }
 const getcompanyById = async (req , res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
     try {
         const data = await companyModel.findById(companyId)
 
         res.json( data )
-    } catch {
+    } catch (error) {
         res.json({msg: 'Error al obetener los datos'})
     }
 }
-// const postcompany = async (req, res) => {
-//     const inputData = req.body
-//     try {
-//         const data = await companyModel.create(inputData)
+const postcompany = async (req, res) => {
+    const inputData = req.body
+    try {
+        const data = await companyModel.create(inputData)
 
-//         res.json( data )
-//     } catch {
-//         res.json({msg: 'Error al registrar al usuario'})
-//     }
-// }
+        res.json( data )
+    } catch {
+        res.json({msg: 'Error al registrar al usuario'})
+    }
+}
 const patchcompany = async (req , res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
     const inputData = req.body
 
     try {
         const data = await companyModel.findByIdAndUpdate( companyId, inputData, {new: true})
         res.json( data )
-    } catch {
+    } catch (error) {
         res.json({msg:'Error al actualizar company'})
     }
 }
 const putcompany = async (req, res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
     const inputData = req.body
 
     try {
         const data = await companyModel.findByIdAndUpdate(companyId, inputData, {new:true})
         res.json( data )
-    } catch {
+    } catch (error) {
         res.json({msg: 'Error al actualizar todos las company'})
     }
 }
 const deletecompany = async (req, res) => {
-    const companyId = req.params.id
+    const companyId = req.params.companyId
 
     try {
         const data = await companyModel.findByIdAndDelete(companyId)
 
         res.json( data )
-    } catch {
+    } catch  (error) {
         res.json({msg:'Error al Eliminar los usuarios'})
     }
 }
@@ -67,7 +67,7 @@ const deletecompany = async (req, res) => {
 module.exports = {
     getcompany,
     getcompanyById,
-    // postcompany,
+    postcompany,
     patchcompany,
     putcompany,
     deletecompany
