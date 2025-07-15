@@ -62,15 +62,43 @@ const postUsers = async (req, res) => {
     }
 }
 const patchUsers = async (req , res) => {
-        const userId = req.params.id
-        const inputData = req.body
+    const inputData = req.body;                     // 5
+    const { email, password, rol } = inputData;     // Desestructuracion
+
+    let companyRegistered;
+    let developerRegistered;
 
     try {
-        const data = await userModel.findByIdAndUpdate(userId, inputData, {new: true})
 
-        res.json( data )
+        let userData = { email, password, rol };
+
+        // Paso 1: Verificar si el usuario existe
+        const userExists = await userModel.findOne({ email: inputData.email });
+        // Verificando si el usuario existe
+        if ( ! userExists ) {
+            return res.status(400).json({ msg: 'El usuario ya existe' });
+        }
+
+        // Paso 2: Filtro los datos a registrar por rol
+        if( inputData.rol === 'company' ) {
+            companyRegistered = await companyModel.findByIdAndUpdate( userExists._id, inputData.company, { new: true } );
+            userData.company = companyRegistered._id;
+        }
+        else if( inputData.rol === 'developer' ) {
+            developerRegistered = await devProfileModel.create( userExists._id, inputData.developer, { new: true } );
+            userData.devProfile = developerRegistered._id;
+        }
+
+        const userRegistered = await userModel.findByIdAndUpdate( userExists._id, userData, { new: true } );
+
+        res.json({ 
+            user: userRegistered, 
+            company: companyRegistered, 
+            developer: developerRegistered 
+        });
+
     } catch( error ) {
-        res.json({msg: 'Error al actualizar el usuario'})
+        res.json({msg: 'Error al registrar el usuario', errors: error.errors })
     }
 }
 
