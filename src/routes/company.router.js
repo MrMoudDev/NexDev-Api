@@ -3,8 +3,8 @@ const { getcompany, putcompany, patchcompany, deletecompany, getcompanyById, pos
 const router = express.Router()
 
 //Rutas definidas
-router.get("/", getcompany)
 router.post("/", postcompany)
+router.get("/", getcompany)
 router.get("/:companyId", getcompanyById)
 router.put("/:companyId", putcompany)
 router.patch("/:companyId", patchcompany)

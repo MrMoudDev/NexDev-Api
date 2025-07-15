@@ -2,7 +2,7 @@ const companyModel = require("../models/company.model.js")
 
 const getcompany = async (req , res) => {
     try {
-        const data = await companyModel.find()
+        const data = await companyModel.find();
         res.json(data)
     } catch (error) {
         res.json({msg:"Obten las company"})
@@ -19,6 +19,7 @@ const getcompanyById = async (req , res) => {
     }
 }
 const postcompany = async (req, res) => {
+
     const inputData = req.body
     try {
         const data = await companyModel.create(inputData)
