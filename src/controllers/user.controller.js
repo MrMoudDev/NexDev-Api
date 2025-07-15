@@ -95,7 +95,15 @@ const deleteUsers = async (req, res) => {
         res.json({msg: 'Error al eliminar el usuario'})
     }
 }
-
+const getUsersByRol= async (req, res)=>{
+    const rol = req.params.rol
+    try {
+        const data = await userModel.find({ rol })
+        res.json(data)
+    } catch (error) {
+        res.json({msg: 'Error al obtener el usuario por Rol'})
+    }
+}
 
 module.exports = {
     getUserById,
@@ -103,5 +111,6 @@ module.exports = {
     postUsers,
     patchUsers,
     putUsers,
-    deleteUsers
+    deleteUsers,
+    getUsersByRol
 }

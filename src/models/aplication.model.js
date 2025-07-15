@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const aplicationSchema = new mongoose.Schema({
     // Relación: muchas aplicaciones -> 1 desarrollador
-    devProfile: { type: mongoose.Schema.Types.ObjectId, ref: 'devProfile', required: true },
+    devProfile: { type: mongoose.Schema.Types.ObjectId, ref: 'devProfile'},
   // Relación: muchas aplicaciones -> 1 vacante
-    vacant: { type: mongoose.Schema.Types.ObjectId, ref: 'vacant', required: true },
+    vacant: { type: mongoose.Schema.Types.ObjectId, ref: 'vacant' },
 
     estado: {
         type: String,
