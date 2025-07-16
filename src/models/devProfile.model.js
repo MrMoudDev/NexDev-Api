@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const devProfileSchema = new mongoose.Schema({
     nombre: {
         type: String,
-        required: true
     },
     stack: [String], // Tecnologías que maneja
     experiencia: {

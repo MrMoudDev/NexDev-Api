@@ -6,7 +6,6 @@ const router = express.Router()
 router.post("/", postcompany)
 router.get("/", getcompany)
 router.get("/:companyId", getcompanyById)
-
 router.put("/:companyId", putcompany)
 router.patch("/:companyId", patchcompany)
 router.delete("/:companyId", deletecompany)
