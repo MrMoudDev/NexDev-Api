@@ -4,7 +4,7 @@ const userModel = require("../models/user.model.js")
 
 const getUsers = async (req , res) => {
     try {
-        const data = await userModel.find().populate([ 'company', 'devProfile' ])
+        const data = await userModel.find().populate([ 'company', 'devProfile' ]).select("-password")
         res.json( data )
     } catch( error ) {
         res.json({msg: 'Error al obtener los usuarios'})
@@ -98,7 +98,7 @@ const deleteUsers = async (req, res) => {
 const getUsersByRol= async (req, res)=>{
     const rol = req.params.rol
     try {
-        const data = await userModel.find({ rol })
+        const data = await userModel.find({ rol }).select('-password')
         res.json(data)
     } catch (error) {
         res.json({msg: 'Error al obtener el usuario por Rol'})
