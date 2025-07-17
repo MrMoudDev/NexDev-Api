@@ -1,3 +1,4 @@
+const { generateToken } = require("../helpers/jwt.js")
 const companyModel = require("../models/company.model.js")
 const devProfileModel = require("../models/devProfile.model.js")
 const userModel = require("../models/user.model.js")
@@ -8,6 +9,28 @@ const getUsers = async (req , res) => {
         res.json( data )
     } catch( error ) {
         res.json({msg: 'Error al obtener los usuarios'})
+    }
+}
+
+const login = async (req, res) => {
+    try {
+        const inputData = req.body
+        const user = await userModel.find({email:inputData.email})
+        if (!user) return res.send('no existe el usuario')
+
+            console.log('input:', inputData)
+            console.log('mongo:', user)
+
+            if(inputData.password === user[0].password) {
+                const token = generateToken(inputData)
+                return res.json({token: token,msg:"Logueado"})
+            } else {
+                res.json({msg: 'contraseña incorrecta'})
+            }
+    } catch (error) {
+        console.log(error)
+
+        res.json({msg:"Error al loguear"})
     }
 }
 
@@ -58,6 +81,7 @@ const postUsers = async (req, res) => {
         });
 
     } catch( error ) {
+        console.log(error)
         res.json({msg: 'Error al registrar el usuario', errors: error.errors })
     }
 }
@@ -140,5 +164,6 @@ module.exports = {
     patchUsers,
     putUsers,
     deleteUsers,
-    getUsersByRol
+    getUsersByRol,
+    login
 }

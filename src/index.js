@@ -4,7 +4,6 @@ const dbConection = require("./config/mongo.config.js")
 
 const app = express()
 const port = 3000
-const cors = require("cors")
 
 
 

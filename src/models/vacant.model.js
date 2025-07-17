@@ -18,7 +18,7 @@ const vacantSchema = new mongoose.Schema({
   tareas: [String],
 
   // Relación: muchas vacantes -> 1 empresa
-  company: { type: mongoose.Schema.Types.ObjectId, ref: 'company', required: true },
+  company: { type: mongoose.Schema.Types.ObjectId, ref: 'company', required: false },
 
   // Relación: 1 vacante -> muchas aplicaciones
   applicantes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
