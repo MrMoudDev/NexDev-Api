@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 async function dbConection () {
     try {
-        await mongoose.connect( 'mongodb://localhost:27017/db-nexdev' )
+        await mongoose.connect( process.env.DB_URI)
         console.log("Base de datos coenctada exitosamente")
     }
     catch (error) {
