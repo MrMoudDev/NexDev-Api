@@ -8,6 +8,7 @@ const generateToken = (payload) => {
         payload,             // Carga util
         'kskxmejxnskslls',          // Palabra semilla secreta
         {expiresIn: "1h"}    //Opciones y coniguraciones del token
+           //Opciones y coniguraciones del token
     )
 
     return token;
