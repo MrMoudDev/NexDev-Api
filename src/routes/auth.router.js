@@ -5,8 +5,8 @@ const router = express.Router();
 
 
 // Defino las rutas de autenticacion
-router.post( '/login', login);
-router.post( '/register', postUsers );  // Ruta publica (company, desarrollador)
+router.post( '/login', authUser, login);
+router.post( '/register', authUser, postUsers );  // Ruta publica (company, desarrollador)
 // router.get( '/re-new-token', authUser, renewToken)
 router.get( '/re-new-token', authUser, renewToken )
 
