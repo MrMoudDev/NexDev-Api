@@ -15,15 +15,15 @@ const getUsers = async (req , res) => {
 const login = async (req, res) => {
     try {
         const inputData = req.body
-        const user = await userModel.find({email:inputData.email})
+        const user = await userModel.findOne({email:inputData.email})
         if (!user) return res.send('no existe el usuario')
 
             console.log('input:', inputData)
             console.log('mongo:', user)
 
-            if(inputData.password === user[0].password) {
+            if(inputData.password === user.password) {
                 const token = generateToken(inputData)
-                return res.json({token: token,msg:"Logueado"})
+                return res.json({token, user })
             } else {
                 res.json({msg: 'contraseña incorrecta'})
             }
@@ -157,8 +157,22 @@ const getUsersByRol= async (req, res)=>{
     }
 }
 
+const renewToken = async ( req, res) => {
+    const Payload = req.authUser
+
+    const data = await userModel.findOne({ email: Payload.email })
+
+    if (!data)
+        return res.json({msg:'Usuario no existe'})
+
+    const token = generateToken(Payload)
+
+    res.json({ token, user: data })
+}
+
 module.exports = {
     getUserById,
+    renewToken,
     getUsers,
     postUsers,
     patchUsers,

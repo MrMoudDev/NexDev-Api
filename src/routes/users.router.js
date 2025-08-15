@@ -5,7 +5,7 @@ const { getUsers, getUserById, postUsers, putUsers, patchUsers, deleteUsers, get
 const router = express.Router()
 
 //Rutas definidas
-router.post("/", postUsers)    
+router.post("/", postUsers)
 router.post('/login', login)     // Solamente puede registrar quien este autenticado
 router.get("/", getUsers)
 router.get("/:id", getUserById)

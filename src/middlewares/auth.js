@@ -1,5 +1,4 @@
-const verifyToken = require("../helpers/jwt.helper.mjs")
-const {verifyToken} = require('./../helpers/jwt.js')
+const {verifyToken} = require('../helpers/jwt.js')
 
 
 const authUser = (req, res, next) => {
@@ -19,7 +18,7 @@ const authUser = (req, res, next) => {
     delete payload.exp
 
     console.log({ payload })
-    
+
 
     //Crear una propiedad en el objeto request de express y guardarlo en el paylod
     req.authUser = payload
